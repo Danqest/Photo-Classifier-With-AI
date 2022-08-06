@@ -3,30 +3,13 @@ if (STATUS) {
   STATUS.innerText = 'Loaded TensorFlow.js - version: ' + tf.version.tfjs;
 }
 
-const VIDEO = document.getElementById('webcam');
-const ENABLE_CAM_BUTTON = document.getElementById('enableCam');
-
 const RESET_BUTTON = document.getElementById('reset');
 const TRAIN_BUTTON = document.getElementById('train');
 const MOBILE_NET_INPUT_WIDTH = 224;
 const MOBILE_NET_INPUT_HEIGHT = 224;
 const STOP_DATA_GATHER = -1;
-const CLASS_NAMES = [];
 
-ENABLE_CAM_BUTTON.addEventListener('click', enableCam);
-TRAIN_BUTTON.addEventListener('click', trainAndPredict);
-RESET_BUTTON.addEventListener('click', reset);
-
-
-let dataCollectorButtons = document.querySelectorAll('button.dataCollector');
-for (let i = 0; i < dataCollectorButtons.length; i++) {
-  dataCollectorButtons[i].addEventListener('mousedown', gatherDataForClass);
-  dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
-  // Populate the human readable names for classes.
-  CLASS_NAMES.push(dataCollectorButtons[i].getAttribute('data-name'));
-}
-
-
+let CLASS_NAMES = [];
 let mobilenet = undefined;
 let gatherDataState = STOP_DATA_GATHER;
 let videoPlaying = false;
@@ -35,10 +18,12 @@ let trainingDataOutputs = [];
 let examplesCount = [];
 let predict = false;
 
+TRAIN_BUTTON.addEventListener('click', trainAndPredict);
+RESET_BUTTON.addEventListener('click', reset);
 
-/**
- * Loads the MobileNet model and warms it up so ready for use.
- **/
+
+
+// Loads the MobileNet pre-trained model and warms it up so it is ready to use.
  async function loadMobileNetFeatureModel() {
   const URL = 
     'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/feature_vector/5/default/1';
@@ -58,6 +43,41 @@ loadMobileNetFeatureModel();
 
 
 
+
+
+// Call function upon button press to perform multiple checks and then train model.
+async function trainAndPredict() {
+  CLASS_NAMES = []
+  let dataClassValues = document.querySelectorAll('input.categoryName');
+  for (let i = 0; i < dataClassValues.length; i++) {
+
+    // Populate the human readable names for classes.
+    if (dataClassValues[i].value == ''){
+      alert("Category " + i + " needs an entry.")
+      break
+    } else {
+      CLASS_NAMES.push(dataClassValues[i].value.trim());
+    }
+  }
+  console.log(CLASS_NAMES)
+
+  predict = false;
+  tf.util.shuffleCombo(trainingDataInputs, trainingDataOutputs);
+  let outputsAsTensor = tf.tensor1d(trainingDataOutputs, 'int32');
+  let oneHotOutputs = tf.oneHot(outputsAsTensor, CLASS_NAMES.length);
+  let inputsAsTensor = tf.stack(trainingDataInputs);
+  
+  let results = await model.fit(inputsAsTensor, oneHotOutputs, {shuffle: true, batchSize: 5, epochs: 10, 
+      callbacks: {onEpochEnd: logProgress} });
+  
+  outputsAsTensor.dispose();
+  oneHotOutputs.dispose();
+  inputsAsTensor.dispose();
+  predict = true;
+  predictLoop();
+}
+
+
 let model = tf.sequential();
 model.add(tf.layers.dense({inputShape: [1024], units: 128, activation: 'relu'}));
 model.add(tf.layers.dense({units: CLASS_NAMES.length, activation: 'softmax'}));
@@ -74,8 +94,6 @@ model.compile({
   // As this is a classification problem you can record accuracy in the logs too!
   metrics: ['accuracy']  
 });
-
-
 
 
 function hasGetUserMedia() {
@@ -105,18 +123,12 @@ function enableCam() {
 }
 
 
-
-/**
- * Handle Data Gather for button mouseup/mousedown.
- **/
+// Handle Data Gather for button mouseup/mousedown.
  function gatherDataForClass() {
   let classNumber = parseInt(this.getAttribute('data-1hot'));
   gatherDataState = (gatherDataState === STOP_DATA_GATHER) ? classNumber : STOP_DATA_GATHER;
   dataGatherLoop();
 }
-
-
-
 
 function dataGatherLoop() {
   if (videoPlaying && gatherDataState !== STOP_DATA_GATHER) {
@@ -145,25 +157,6 @@ function dataGatherLoop() {
   }
 }
 
-
-
-
-async function trainAndPredict() {
-  predict = false;
-  tf.util.shuffleCombo(trainingDataInputs, trainingDataOutputs);
-  let outputsAsTensor = tf.tensor1d(trainingDataOutputs, 'int32');
-  let oneHotOutputs = tf.oneHot(outputsAsTensor, CLASS_NAMES.length);
-  let inputsAsTensor = tf.stack(trainingDataInputs);
-  
-  let results = await model.fit(inputsAsTensor, oneHotOutputs, {shuffle: true, batchSize: 5, epochs: 10, 
-      callbacks: {onEpochEnd: logProgress} });
-  
-  outputsAsTensor.dispose();
-  oneHotOutputs.dispose();
-  inputsAsTensor.dispose();
-  predict = true;
-  predictLoop();
-}
 
 function logProgress(epoch, logs) {
   console.log('Data for epoch ' + epoch, logs);
