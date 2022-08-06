@@ -17,6 +17,8 @@ let trainingDataInputs = [];
 let trainingDataOutputs = [];
 let examplesCount = [];
 let predict = false;
+let width = []
+let height = []
 
 TRAIN_BUTTON.addEventListener('click', trainAndPredict);
 RESET_BUTTON.addEventListener('click', reset);
@@ -42,9 +44,6 @@ RESET_BUTTON.addEventListener('click', reset);
 loadMobileNetFeatureModel();
 
 
-
-
-
 // Call function upon button press to perform multiple checks and then train model.
 async function trainAndPredict() {
   CLASS_NAMES = []
@@ -61,20 +60,79 @@ async function trainAndPredict() {
   }
   console.log(CLASS_NAMES)
 
-  predict = false;
-  tf.util.shuffleCombo(trainingDataInputs, trainingDataOutputs);
-  let outputsAsTensor = tf.tensor1d(trainingDataOutputs, 'int32');
-  let oneHotOutputs = tf.oneHot(outputsAsTensor, CLASS_NAMES.length);
-  let inputsAsTensor = tf.stack(trainingDataInputs);
+  let filesInput = document.querySelectorAll('.trainData')
+  for (let j = 0; j < filesInput.length; j++) {
+    var files = filesInput[j].files
+    
+    var picArray = []
+
+
+    for(let k = 0; k < files.length; k++){
+      var file = files.item(k)
+
+
+      var reader = new FileReader()
+      reader.readAsArrayBuffer(file)
+      reader.onload = function(e) {
+        var arrayBuffer = reader.result
+        var bytes = new Uint8Array(arrayBuffer);
+        console.log(bytes)
+
+        var reader2 = new FileReader()
+        reader2.readAsDataURL(file)
+        reader2.onload = function(e) {
+          var img2 = new Image()
+          img2.src = reader2.result
+          img2.onload = function () {
+            var width = this.width
+            var height = this.height
+            console.log(width, height)
+
+            let imageFeatures = tf.tidy(function() {
+              let imageAsTensor = tf.browser.fromPixels({data: bytes, width: width, height: height}) // Problem Child
+              let resizedTensor = tf.image.resizeBilinear(imageAsTensor, [MOBILE_NET_INPUT_HEIGHT, 
+                MOBILE_NET_INPUT_WIDTH], true);
+              let normalizedTensor = resizedTensor.div(255);
+              return mobilenet.predict(normalizedTensor.expandDims()).squeeze();
+            });
+          console.log('success!')
+          trainingDataInputs.push(imageFeatures)
+          }
+      }
+      }
+
+
+      
+
+
+
+
+    //   let imageFeatures = tf.tidy(function() {
+    //     let imageAsTensor = tf.browser.fromPixels({data: bytes, width: width, height: height}) // Problem Child
+    //     let resizedTensor = tf.image.resizeBilinear(imageAsTensor, [MOBILE_NET_INPUT_HEIGHT, 
+    //       MOBILE_NET_INPUT_WIDTH], true);
+    //     let normalizedTensor = resizedTensor.div(255);
+    //     return mobilenet.predict(normalizedTensor.expandDims()).squeeze();
+    //   });
+    // console.log('success!')
+    // trainingDataInputs.push(imageFeatures)
+    }
+  }
+
+  // predict = false;
+  // tf.util.shuffleCombo(trainingDataInputs, trainingDataOutputs);
+  // let outputsAsTensor = tf.tensor1d(trainingDataOutputs, 'int32');
+  // let oneHotOutputs = tf.oneHot(outputsAsTensor, CLASS_NAMES.length);
+  // let inputsAsTensor = tf.stack(trainingDataInputs);
   
-  let results = await model.fit(inputsAsTensor, oneHotOutputs, {shuffle: true, batchSize: 5, epochs: 10, 
-      callbacks: {onEpochEnd: logProgress} });
+  // let results = await model.fit(inputsAsTensor, oneHotOutputs, {shuffle: true, batchSize: 5, epochs: 10, 
+  //     callbacks: {onEpochEnd: logProgress} });
   
-  outputsAsTensor.dispose();
-  oneHotOutputs.dispose();
-  inputsAsTensor.dispose();
-  predict = true;
-  predictLoop();
+  // outputsAsTensor.dispose();
+  // oneHotOutputs.dispose();
+  // inputsAsTensor.dispose();
+  // predict = true;
+  // predictLoop();
 }
 
 
@@ -96,39 +154,39 @@ model.compile({
 });
 
 
-function hasGetUserMedia() {
-  return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-}
+// function hasGetUserMedia() {
+//   return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+// }
 
-function enableCam() {
-  if (hasGetUserMedia()) {
-    // getUsermedia parameters.
-    const constraints = {
-      video: true,
-      width: 640, 
-      height: 480 
-    };
+// function enableCam() {
+//   if (hasGetUserMedia()) {
+//     // getUsermedia parameters.
+//     const constraints = {
+//       video: true,
+//       width: 640, 
+//       height: 480 
+//     };
 
-    // Activate the webcam stream.
-    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-      VIDEO.srcObject = stream;
-      VIDEO.addEventListener('loadeddata', function() {
-        videoPlaying = true;
-        ENABLE_CAM_BUTTON.classList.add('removed');
-      });
-    });
-  } else {
-    console.warn('getUserMedia() is not supported by your browser');
-  }
-}
+//     // Activate the webcam stream.
+//     navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+//       VIDEO.srcObject = stream;
+//       VIDEO.addEventListener('loadeddata', function() {
+//         videoPlaying = true;
+//         ENABLE_CAM_BUTTON.classList.add('removed');
+//       });
+//     });
+//   } else {
+//     console.warn('getUserMedia() is not supported by your browser');
+//   }
+// }
 
 
-// Handle Data Gather for button mouseup/mousedown.
- function gatherDataForClass() {
-  let classNumber = parseInt(this.getAttribute('data-1hot'));
-  gatherDataState = (gatherDataState === STOP_DATA_GATHER) ? classNumber : STOP_DATA_GATHER;
-  dataGatherLoop();
-}
+// // Handle Data Gather for button mouseup/mousedown.
+//  function gatherDataForClass() {
+//   let classNumber = parseInt(this.getAttribute('data-1hot'));
+//   gatherDataState = (gatherDataState === STOP_DATA_GATHER) ? classNumber : STOP_DATA_GATHER;
+//   dataGatherLoop();
+// }
 
 function dataGatherLoop() {
   if (videoPlaying && gatherDataState !== STOP_DATA_GATHER) {
