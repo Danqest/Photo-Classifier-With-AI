@@ -1,4 +1,4 @@
-import { MnistData } from "./data.js";
+import { MnistData } from "./_data.js";
 
 function getModel() {
     const model = tf.sequential();
