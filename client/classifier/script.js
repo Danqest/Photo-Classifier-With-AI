@@ -1,11 +1,12 @@
+const SCRIPT_BUTTON = document.getElementById('loadScript');
 const LOAD_BUTTON = document.getElementById('loadData');
 const TRAIN_BUTTON = document.getElementById('trainModel');
-const PREDICT_BUTTON = document.getElementById('predictUnorganized');
 
 
+SCRIPT_BUTTON.addEventListener('click', getCategoryNamesAndPreviews);
 LOAD_BUTTON.addEventListener('click', loadData);
 TRAIN_BUTTON.addEventListener('click', trainModel);
-// PREDICT_BUTTON.addEventListener('click', gotResults);
+
 
 let CLASS_NAMES = []
 
@@ -13,7 +14,7 @@ function modelLoaded() {
     console.log("Model Loaded!")
 }
 
-const options = {numLabels: 4}
+const options = {numLabels: 10}
 const mobilenet = ml5.featureExtractor("MobileNet", options, modelLoaded)
 const classifier = mobilenet.classification()
 
@@ -48,6 +49,32 @@ function getCategoryNamesAndPreviews() {
         });
     }
     console.log(CLASS_NAMES)
+    
+
+    // load unorganized file thumbnails to browser
+    var unorganizedFiles = document.getElementById('files-unorganized');
+    unorganizedFiles.addEventListener("change", function(event) {
+            var files = event.target.files; //FileList object
+            var output = document.getElementById("result-unorganized");
+            for(let i = 0; i< files.length; i++) {
+                var file = files[i];                
+                //Only pics
+                if(!file.type.match('image'))
+                  continue;
+                var picReader = new FileReader();
+                picReader.addEventListener("load",function(event){
+                    var picFile = event.target;
+                    var div = document.createElement("div");
+                    div.innerHTML = "<img class='unorgThumbnail' src='" + picFile.result + "'" + 
+                    "'/><p id='unorgFile"+i+"'>";
+                    output.insertBefore(div,null);            
+                    }
+                );
+                 //Read the image
+                picReader.readAsDataURL(file);
+            }
+    })
+        
 }
 
 
@@ -94,18 +121,23 @@ function trainModel() {
     classifier.train(whileTraining)
 }
 
-function gotResults(error, results) {
-    if (error) {
-        console.error(error)
-    } else {
-        classifier.classify(document.getElementById('mnist0'), CLASS_NAMES.length)
-        .then((result) => {
-            console.log(result);
-           // do whatever you want to do with result
-           var label = result[0].label
-           var accuracy = result[0].confidence
-           console.log("Predicted Classification Label: " + label)
-           console.log("Predicted Confidence: " + (accuracy*100).toFixed(2) + "%")
-       }).catch(err=>console.log(err))
-    }
+function gotResults(error, result) {
+    var toPredict = document.getElementsByClassName('unorgThumbnail')
+    for (let j=0; j<toPredict.length; j++) {
+        if (error) {
+            console.error(error)
+        } else {
+            classifier.classify(toPredict[j], CLASS_NAMES.length)
+            .then((result) => {
+                console.log(result);
+               // do whatever you want to do with result
+               var label = result[0].label
+               var accuracy = result[0].confidence
+               console.log("Predicted Classification Label: " + label)
+               console.log("Predicted Confidence: " + (accuracy*100).toFixed(2) + "%")
+               var predictElement = document.getElementById('unorgFile'+j)
+               predictElement.innerText = ('Label: ' + label + ', Confidence: ' + (accuracy*100).toFixed(2) + "%")
+           }).catch(err=>console.log(err))
+        }
+    } 
 }
