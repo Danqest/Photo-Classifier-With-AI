@@ -1,10 +1,14 @@
 import React from "react";
-import Sidebar from "../components/Sidebar";
+import CategoryMenu from '../components/CategoryMenu';
+import ProductList from '../components/ProductList';
+import Cart from '../components/Cart'
 
 const Home = () => {
   return (
     <div className="container">
-      <Sidebar />
+      <CategoryMenu />
+      <ProductList />
+      <Cart />
     </div>
   );
 };

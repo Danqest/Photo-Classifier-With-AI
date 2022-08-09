@@ -1,22 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
-import Home from './pages/Home';
-import Detail from './pages/Detail';
-import NoMatch from './pages/NoMatch';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Nav from './components/Nav';
-import { StoreProvider } from './utils/GlobalState';
-import Success from './pages/Success';
-import OrderHistory from './pages/OrderHistory';
+// import Home from './pages/Home';
+// import Detail from './pages/Detail';
+// import NoMatch from './pages/NoMatch';
+// import Login from './pages/Login';
+// import Signup from './pages/Signup';
+// import Nav from './components/Nav';
+// import { StoreProvider } from './utils/GlobalState';
+// import Success from './pages/Success';
+// import OrderHistory from './pages/OrderHistory';
+import Header from './components/Header/Header';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -38,11 +33,14 @@ const client = new ApolloClient({
 });
 
 function App() {
+  
   return (
-    <ApolloProvider client={client}>
+      <ApolloProvider client={client}>
       <Router>
-        <div>
-          <StoreProvider>
+        <div className='App'>
+          <Header />
+          
+          {/* <StoreProvider>
             <Nav />
             <Routes>
               <Route 
@@ -74,7 +72,7 @@ function App() {
                 element={<NoMatch />} 
               />
             </Routes>
-          </StoreProvider>
+          </StoreProvider> */}
         </div>
       </Router>
     </ApolloProvider>
