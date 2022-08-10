@@ -5,18 +5,43 @@ const TRAIN_BUTTON = document.getElementById('trainModel');
 
 SCRIPT_BUTTON.addEventListener('click', getCategoryNamesAndPreviews);
 LOAD_BUTTON.addEventListener('click', loadData);
-TRAIN_BUTTON.addEventListener('click', trainModel);
+// TRAIN_BUTTON.addEventListener('click', trainModel);
 
 
 let CLASS_NAMES = []
 
-function modelLoaded() {
-    console.log("Model Loaded!")
+window.onload = function() {
+    // load unorganized file thumbnails to browser
+    var unorganizedFiles = document.getElementById('files-unorganized');
+    unorganizedFiles.addEventListener("change", function(event) {
+            var files = event.target.files; //FileList object
+            var output = document.getElementById("result-unorganized");
+            while (output.firstChild) {
+                output.removeChild(output.firstChild)
+            }
+            for(let i = 0; i< files.length; i++) {
+                var file = files[i];                
+                //Only pics
+                if(!file.type.match('image'))
+                  continue;
+                var picReader = new FileReader();
+                picReader.addEventListener("load",function(event){
+                    var picFile = event.target;
+                    var div = document.createElement("div");
+                    div.innerHTML = "<img class='unorgThumbnail' src='" + picFile.result + "'" + 
+                    "'/><p id='unorgFile"+i+"'>";
+                    output.insertBefore(div,null);            
+                    }
+                );
+                 //Read the image
+                picReader.readAsDataURL(file);
+            }
+    })
 }
 
-const options = {numLabels: 10}
-const mobilenet = ml5.featureExtractor("MobileNet", options, modelLoaded)
-const classifier = mobilenet.classification()
+// const options = {numLabels: 10}
+// const mobilenet = ml5.featureExtractor("MobileNet", options, modelLoaded)
+// const classifier = mobilenet.classification()
 
 
 function getCategoryNamesAndPreviews() {
@@ -51,61 +76,17 @@ function getCategoryNamesAndPreviews() {
     console.log(CLASS_NAMES)
     
 
-    // load unorganized file thumbnails to browser
-    var unorganizedFiles = document.getElementById('files-unorganized');
-    unorganizedFiles.addEventListener("change", function(event) {
-            var files = event.target.files; //FileList object
-            var output = document.getElementById("result-unorganized");
-            for(let i = 0; i< files.length; i++) {
-                var file = files[i];                
-                //Only pics
-                if(!file.type.match('image'))
-                  continue;
-                var picReader = new FileReader();
-                picReader.addEventListener("load",function(event){
-                    var picFile = event.target;
-                    var div = document.createElement("div");
-                    div.innerHTML = "<img class='unorgThumbnail' src='" + picFile.result + "'" + 
-                    "'/><p id='unorgFile"+i+"'>";
-                    output.insertBefore(div,null);            
-                    }
-                );
-                 //Read the image
-                picReader.readAsDataURL(file);
-            }
-    })
+    
         
 }
 
-
-
-// // can add loop to add images on category Submit button click 
-// classifier.addImage(document.getElementById('mnist0'), 'zero')
-// classifier.addImage(document.getElementById('mnist1'), 'zero')
-// classifier.addImage(document.getElementById('mnist2'), 'one')
-// classifier.addImage(document.getElementById('mnist4'), 'zero')
-// classifier.addImage(document.getElementById('mnist5'), 'one')
-// classifier.addImage(document.getElementById('mnist6'), 'one')
-// console.log(document.getElementById('mnist2'))
-
-// optional callback for addImage
-function addedImage() {
-    console.log("added image!")
-}
-
-function whileTraining(loss) {
-    if (loss == null) {
-        console.log("Training Complete")
-        gotResults()
-    } else {
-        console.log(loss)
-    }
-}
-
-function loadData() {
-    getCategoryNamesAndPreviews()
+function modelLoaded() {
+    console.log("Model Loaded! Loading Images...")
     var img_array = document.getElementsByClassName('thumbnail')
     console.log(img_array)
+
+    // console.log(CLASS_NAMES)
+
 
     for (let i=0; i < img_array.length; i++) {
         var imgObj = img_array[i]
@@ -117,8 +98,27 @@ function loadData() {
     }
 }
 
+function loadData() {
+    getCategoryNamesAndPreviews()
+    // console.log(CLASS_NAMES.length)
+    const options = {numLabels: CLASS_NAMES.length}
+    const mobilenet = ml5.featureExtractor("MobileNet", options, modelLoaded)
+    const classifier = mobilenet.classification()
+    
+    classifier.train(whileTraining)
+}
+
 function trainModel() {
     classifier.train(whileTraining)
+}
+
+function whileTraining(loss) {
+    if (loss == null) {
+        console.log("Training Complete")
+        gotResults()
+    } else {
+        console.log(loss)
+    }
 }
 
 function gotResults(error, result) {
