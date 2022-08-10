@@ -14,19 +14,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-<<<<<<< HEAD
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "jquery": "^3.6.0"
-=======
-    "autoprefixer": "^10.4.8",
-    "concurrently": "^5.1.0",
-    "postcss": "^8.4.16",
-    "tailwindcss": "^3.1.8"
-  },
-  "dependencies": {
-    "react-tailwind": "^0.0.0"
->>>>>>> 64cdfeeb3fce3bb805eb59bace11b519867aba2f
+    "jquery": "^3.6.0",
+    "autoprefixer": "^10.4.8"
   }
 }

@@ -40,8 +40,8 @@ const Header = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem dataIndex='home' active={true} icon={<FiHome />}><Link to='/'>Home</Link></MenuItem>
-              <MenuItem icon={<FaList />}><Link to='/categories'>Categories</Link></MenuItem>
+              <MenuItem dataIndex='home' active={true} icon={<FiHome />}><Link to='/' className="sideBtn">Home</Link></MenuItem>
+              <MenuItem icon={<FaList />}><Link to='/categories' className="sideBtn">Categories</Link></MenuItem>
               <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
               <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
               <MenuItem icon={<BiCog />}>Settings</MenuItem>
@@ -58,7 +58,7 @@ const Header = () => {
               </Button>
         </InputGroup>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogIn />}><Link to="/login" className="loginbtn">
+              <MenuItem icon={<FiLogIn />}><Link to="/login" className="sideBtn">
               Login
             </Link></MenuItem>
               <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
