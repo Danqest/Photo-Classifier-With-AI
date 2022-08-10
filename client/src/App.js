@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-// import Home from './pages/Home';
+import Categories from './pages/Categories';
 // import Detail from './pages/Detail';
 // import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Nav from './components/Nav';
+// import Nav from './components/Nav';
 import { StoreProvider } from './utils/GlobalState';
 // import Success from './pages/Success';
 // import OrderHistory from './pages/OrderHistory';
@@ -43,10 +43,10 @@ function App() {
           <StoreProvider>
             {/* <Nav /> */}
             <Routes>
-              {/* <Route 
-                path="/" 
-                element={<Home />} 
-              /> */}
+              <Route 
+                path="/categories" 
+                element={<Categories />} 
+              />
               <Route 
                 path="/login" 
                 element={<Login />} 
