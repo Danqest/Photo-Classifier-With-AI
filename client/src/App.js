@@ -9,9 +9,12 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 // import Nav from './components/Nav';
 import { StoreProvider } from './utils/GlobalState';
-// import Success from './pages/Success';
+import Card from './components/Cards/Cardz';
 // import OrderHistory from './pages/OrderHistory';
 import Header from './components/Header/Header';
+// import { Card } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -55,10 +58,10 @@ function App() {
                 path="/signup" 
                 element={<Signup />} 
               />
-              {/* <Route 
-                path="/success" 
-                element={<Success />} 
-              /> */}
+              <Route 
+                path="/home" 
+                element={<Card/>} 
+              />
               {/* <Route 
                 path="/orderHistory" 
                 element={<OrderHistory />} 
