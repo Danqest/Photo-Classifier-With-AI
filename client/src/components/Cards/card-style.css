@@ -1,10 +1,21 @@
 body{
     background: radial-gradient(#e5e5e5, #ffffff, #e5e5e5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    flex-direction: row;
     
 }
 
+
+
 .card {
     width: 20rem;
+    margin-bottom: 2rem;
+    margin-top: 8rem;
+    margin-left: 1rem;
+
+    
 }
 
 .card:hover{
@@ -24,6 +35,3 @@ body{
     transform:scale(1);
 }
 
-.card-img-top:hover{
-    transform: scale(1.3)
-}

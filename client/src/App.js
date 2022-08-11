@@ -14,6 +14,8 @@ import Card from './components/Cards/Cardz';
 import Header from './components/Header/Header';
 // import { Card } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+
 
 
 const httpLink = createHttpLink({
