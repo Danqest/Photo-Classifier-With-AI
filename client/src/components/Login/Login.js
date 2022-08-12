@@ -74,7 +74,7 @@ function Login(props) {
           Forgot <a href="#">password?</a>
         </p>
         <p className='no-account text-center'>
-          Don't Have an Account? Click <span><Link to='./signup'>here</Link></span>
+          Don't Have an Account? Click <span><Link to='/Signup'>here</Link></span>
         </p>
       </form>
   );
