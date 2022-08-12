@@ -40,10 +40,10 @@ const Header = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem dataIndex='home' active={true} icon={<FiHome />}><Link to='/home' className="sideBtn">Home</Link></MenuItem>
+              <MenuItem dataindex='home' active={true} icon={<FiHome />}><Link to='/' className="sideBtn">Home</Link></MenuItem>
               <MenuItem icon={<FaList />}><Link to='/categories' className="sideBtn">Categories</Link></MenuItem>
               <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
-              <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
+              <MenuItem icon={<RiPencilLine />}><Link to='/classifier' className="sideBtn">Classifier</Link></MenuItem>
               <MenuItem icon={<BiCog />}>Settings</MenuItem>
             </Menu>
           </SidebarContent>
