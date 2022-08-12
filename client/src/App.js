@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import Categories from './pages/Categories';
-import Login from './components/Login/Login';
-import Signup from './components/Signup/Signup';
+// import Categories from './pages/Categories';
+import LoginForm from './components/Login/LoginForm';
+import SignupForm from './components/Signup/SignupForm';
 import { StoreProvider } from './utils/GlobalState';
 import Classifier from './components/Classifier/Classifier';
 import Header from './components/Header/Header';
@@ -83,11 +83,11 @@ function App() {
               />
               <Route 
                 path="/login" 
-                element={<Login />} 
+                element={<LoginForm />} 
               />
               <Route 
-                path="/signup" 
-                element={<Signup />} 
+                path="/signupform" 
+                element={<SignupForm />} 
               />
               {/* <Route 
                 path="/success" 
