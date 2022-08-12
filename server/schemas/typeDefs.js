@@ -1,59 +1,41 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Category {
-    _id: ID
-    name: String
-  }
-
-  type Product {
-    _id: ID
-    name: String
-    description: String
-    image: String
-    quantity: Int
-    price: Float
-    category: Category
-  }
-
-  type Order {
-    _id: ID
-    purchaseDate: String
-    products: [Product]
-  }
-
   type User {
     _id: ID
-    firstName: String
-    lastName: String
+    username: String
     email: String
-    orders: [Order]
+    collections: [Collection]
   }
 
-  type Checkout {
-    session: ID
+  type Collection {
+    _id: ID
+    collectionTitle: String
+    subfolders: [Subfolder]
   }
 
-  type Auth {
-    token: ID
-    user: User
+  type Subfolder {
+    _id: ID
+    subfolderName: String
+    images: [Image]
   }
 
   type Query {
-    categories: [Category]
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
-    user: User
-    order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    users: [User]
+    collections: [Collection]
+    subfolders: [Subfolder]
+    collections(id: ID!): Collection
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProduct(_id: ID!, quantity: Int!): Product
-    login(email: String!, password: String!): Auth
+    addCollection(collectionTitle: String!): Collection
+    addSubfolder(subfolderName: String!): Subfolder
+    # Define the required parameters for updating a class
+    updateClass(id: ID!, building: String!): Class
+    # Define the required parameters for updating a collection
+    updateCollection(id: ID!, collectionTitle: String!): Class
+    # Define the required parameters for updating a subfolder
+    updateSubfolder(id: ID!, subfolderName: String!): Class
   }
 `;
 
