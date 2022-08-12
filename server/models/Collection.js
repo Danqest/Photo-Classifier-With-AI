@@ -4,6 +4,7 @@ const { Schema, model } = require('mongoose');
 const collectionSchema = new Schema(
     {
     collectionTitle: { type: String, required: true, minLength: 1, maxLength: 280, },
+    collectionOwner: { type: String, required: true, minLength: 1, maxLength: 280, },
     subfolders: [
             { 
             type: Schema.Types.ObjectId, 
@@ -14,6 +15,6 @@ const collectionSchema = new Schema(
 );
 
 // Initialize the Collection model
-const Collection = model('collection', collectionSchema);
+const Collection = model('Collection', collectionSchema);
 
 module.exports = Collection;
