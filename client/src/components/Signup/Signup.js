@@ -4,23 +4,12 @@ import { useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 import { ADD_USER } from '../../utils/mutations';
 
-function Signup(props) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
-  const [addUser] = useMutation(ADD_USER);
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    const mutationResponse = await addUser({
-      variables: {
-        email: formState.email,
-        password: formState.password,
-        firstName: formState.firstName,
-        lastName: formState.lastName,
-      },
-    });
-    const token = mutationResponse.data.addUser.token;
-    Auth.login(token);
-  };
+function Signup() {
+  const [formState, setFormState] = useState({
+    username: '', 
+    email: '', 
+    password: '' });
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,26 +19,34 @@ function Signup(props) {
     });
   };
 
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+
+    try {
+      const { data } = await addUser({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+
+
   return (
     <form onSubmit={handleFormSubmit}>
         <h3>Sign Up</h3>
         <div className="mb-3">
-          <label>First name</label>
+          <label>Username</label>
           <input
             type="text"
             className="form-control"
-            placeholder="First name"
+            placeholder="Enter Username"
             id='firstName'
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label>Last name</label>
-          <input 
-            type="text" 
-            className="form-control" 
-            placeholder="Last name"
-            id='lastName'
+            name='username'
             onChange={handleChange}
           />
         </div>
@@ -58,8 +55,9 @@ function Signup(props) {
           <input
             type="email"
             className="form-control"
-            placeholder="Enter email"
+            placeholder="Enter Email"
             id='email'
+            name='email'
             onChange={handleChange}
           />
         </div>
@@ -68,8 +66,9 @@ function Signup(props) {
           <input
             type="password"
             className="form-control"
-            placeholder="Enter password"
+            placeholder="Enter Password"
             id='pwd'
+            name='password'
             onChange={handleChange}
           />
         </div>
