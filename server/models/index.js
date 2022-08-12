@@ -1,6 +1,7 @@
 const User = require('./User');
-const Image = require('./Image');
 const Collection = require('./Collection');
+const Subfolder = require('./Subfolder');
+const Image = require('./Image');
 
 
-module.exports = { User, Image, Collection };
+module.exports = { User, Collection, Subfolder, Image };
