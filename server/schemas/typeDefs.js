@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
@@ -11,27 +11,20 @@ const typeDefs = gql`
   type Collection {
     _id: ID
     collectionTitle: String
+    collectionOwner: String
     subfolders: [Subfolder]
   }
 
   type Subfolder {
     _id: ID
     subfolderName: String
+    parentCollection: String
   }
 
   type Query {
     users: [User]
     collections: [Collection]
     subfolders: [Subfolder]
-  }
-
-  type Mutation {
-    addCollection(collectionTitle: String!): Collection
-    addSubfolder(subfolderName: String!): Subfolder
-    # Define the required parameters for updating a collection
-    updateCollection(id: ID!, collectionTitle: String!): Collection
-    # Define the required parameters for updating a subfolder
-    updateSubfolder(id: ID!, subfolderName: String!): Subfolder
   }
 `;
 
