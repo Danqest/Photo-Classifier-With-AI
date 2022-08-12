@@ -10,11 +10,8 @@ import Signup from './components/Signup/Signup';
 // import Nav from './components/Nav';
 import { StoreProvider } from './utils/GlobalState';
 // import Success from './pages/Success';
-import Classifier from './components/Classifier/Classifier';
+// import OrderHistory from './pages/OrderHistory';
 import Header from './components/Header/Header';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import { SidebarContent } from 'react-pro-sidebar';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -89,15 +86,23 @@ function App() {
               {/* <Route 
                 path="/signup" 
                 element={<Signup />} 
-              /> */}
+              />
               {/* <Route 
                 path="/success" 
                 element={<Success />} 
               /> */}
-              <Route 
-                path="/classifier" 
-                element={<Classifier />} 
-              />
+              {/* <Route 
+                path="/orderHistory" 
+                element={<OrderHistory />} 
+              /> */}
+              {/* <Route 
+                path="/products/:id" 
+                element={<Detail />} 
+              /> */}
+              {/* <Route 
+                path="*" 
+                element={<NoMatch />} 
+              /> */}
             </Routes>
           </StoreProvider>
         </div>
