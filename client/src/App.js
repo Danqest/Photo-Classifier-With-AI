@@ -3,15 +3,17 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Categories from './pages/Categories';
-// import Detail from './pages/Detail';
-// import NoMatch from './pages/NoMatch';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
-// import Nav from './components/Nav';
 import { StoreProvider } from './utils/GlobalState';
-// import Success from './pages/Success';
-// import OrderHistory from './pages/OrderHistory';
+import Classifier from './components/Classifier/Classifier';
 import Header from './components/Header/Header';
+import Cards from './components/Cards/Cardz';
+// import { Card } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import { Button } from 'react-bootstrap/Button';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -77,19 +79,27 @@ function App() {
             <Routes>
               <Route 
                 path="/categories" 
-                element={<Categories />} 
+                element={<Cards />} 
               />
               <Route 
                 path="/login" 
                 element={<Login />} 
               />
-              {/* <Route 
+              <Route 
                 path="/signup" 
                 element={<Signup />} 
               />
               {/* <Route 
                 path="/success" 
                 element={<Success />} 
+              /> */}
+              <Route 
+                path="/classifier" 
+                element={<Classifier />} 
+              />
+              {/* <Route 
+                path="/" 
+                element={<Cards/>} 
               /> */}
               {/* <Route 
                 path="/orderHistory" 
