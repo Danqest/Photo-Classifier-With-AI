@@ -5,7 +5,13 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
+    password: String
     collections: [Collection]
+  }
+
+  type Auth {
+    token: ID!
+    user: User
   }
 
   type Collection {
@@ -23,8 +29,17 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
+    user(username: String!): User
     collections: [Collection]
+    collection(collectionTitle: String!): Collection
     subfolders: [Subfolder]
+  }
+
+  type Mutation {
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+    addCollection(collectionTitle: String!): Collection
+    addSubfolder(subfolderName: String!): Subfolder
   }
 `;
 
