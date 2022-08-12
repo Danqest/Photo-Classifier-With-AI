@@ -1,32 +1,42 @@
 [
     {
-        "folderName": "0"
+        "subfolderName": "0",
+        "parentCollection": "MNIST"
     },
     {
-        "folderName": "1"
+        "subfolderName": "1",
+        "parentCollection": "MNIST"
     },
     {
-        "folderName": "2"
+        "subfolderName": "2",
+        "parentCollection": "MNIST"
     },
     {
-        "folderName": "3"
+        "subfolderName": "3",
+        "parentCollection": "MNIST"
     },
     {
-        "folderName": "4"
+        "subfolderName": "4",
+        "parentCollection": "MNIST"
     },
     {
-        "folderName": "5"
+        "subfolderName": "5",
+        "parentCollection": "MNIST"
     },
     {
-        "folderName": "6"
+        "subfolderName": "6",
+        "parentCollection": "MNIST"
     },
     {
-        "folderName": "7"
+        "subfolderName": "7",
+        "parentCollection": "MNIST"
     },
     {
-        "folderName": "8"
+        "subfolderName": "8",
+        "parentCollection": "MNIST"
     },
     {
-        "folderName": "9"
+        "subfolderName": "9",
+        "parentCollection": "MNIST"
     }    
 ]
