@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <>
-      <div id="header" className={darkTheme && 'dark-content'}>
+      <div id="header" className={`d-flex ${darkTheme ? ' dark-content':''}`}>
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
           <div className="logotext">
@@ -54,7 +54,7 @@ const Header = () => {
                 onClick={toggleTheme}
               >
                 <i className={darkTheme ? 'fas fa-sun' : 'fas fa-moon'}></i>
-                <span className="d-lg-none d-md-block">Switch mode</span>
+                <span className="d-md-block">Switch mode</span>
               </Button>
         </InputGroup>
             <Menu iconShape="square">

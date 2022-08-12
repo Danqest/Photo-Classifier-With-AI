@@ -39,7 +39,7 @@ function App() {
   return (
       <ApolloProvider client={client}>
       <Router>
-        <div className='App'>
+        <div className='App d-flex'>
         {/* <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container">
             <Link className="navbar-brand" to={'/sign-in'}>
