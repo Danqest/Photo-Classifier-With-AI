@@ -19,6 +19,7 @@ import HomePage from './components/Hompage/hompage';
 
 
 import Collections from './components/Collections/Collections';
+import CollectionDetails from './components/CollectionDetail/CollectionDetail';
 
 
 
@@ -91,6 +92,10 @@ function App() {
               <Route 
                 path="/collections" 
                 element={<Collections />} 
+              />
+              <Route 
+                path="/collections/:collectionId" 
+                element={<CollectionDetails />} 
               />
               <Route 
                 path="/login" 
