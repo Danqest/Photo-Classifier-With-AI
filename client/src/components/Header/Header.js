@@ -46,7 +46,7 @@ const Header = () => {
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
             <div className="logotext">
-              <p>{menuCollapse ? "Logo" : "Big Logo"}</p>
+              <p>{menuCollapse ? "Photo" : "Smart Photo Organizer"}</p>
             </div>
             <div className="closemenu" onClick={menuIconClick}>
               {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
