@@ -16,6 +16,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import HomePage from './components/Hompage/hompage';
 
+import Collections from './components/Collections/Collections';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });

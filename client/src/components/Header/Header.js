@@ -54,7 +54,8 @@ const Header = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem dataIndex="home" active={true} icon={<FiHome />}>
+
+              <MenuItem dataIndex="home" icon={<FiHome />}>
                 <Link to="/home" className="sideBtn">
                   Home
                 </Link>
@@ -64,7 +65,7 @@ const Header = () => {
                   Categories
                 </Link>
               </MenuItem>
-              <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
+
               <MenuItem icon={<RiPencilLine />}>
                 <Link to="/classifier" className="sideBtn">
                   Classifier
