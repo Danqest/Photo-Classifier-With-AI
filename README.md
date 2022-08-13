@@ -1,32 +1,9 @@
-# 📐 Add Comments to Implementation of a Reducer
+# Photo Organizer with Artificial Intelligene  
 
-Work with a partner to add comments describing the functionality of the code found in [reducers.js](./Unsolved/client/src/utils/reducers.js).
+This project is a group effort in creating an application primarily using the MERN stack (MongoDB/Mongoose, ExpressJS, React, and NodeJs) along with GraphQL. The purpose of this application is to create and deploy an artificial intelligence using deep learning and transfer learning, the reuse of a prior-trained deep learning model with domain knowledge, in order to function as an image classifier. The project uses an MNIST dataset which contains many 28x28ps images of handwritten digits to demonstrate the image classification task where the images are categorized as digits 0-9 with substantial accuracy. 
 
-## 📝 Notes
+The classification functionality then has a web-application being built up around to serve as a general image classifier; pre-set categories are defined by the user and sample images of each category are fed to the model, which then in turn is given the task of sorting unorganized images. The application is being built to incorporate storage in the Mongo database with a React frontend and a Node/Express backend. Users are capable of registering and creating accounts and defining their own classification models to train.
 
-What is the purpose of the action argument that gets passed to the reducer function?
 
-How can we account for multiple types of actions inside the reducer?
 
-Refer to the documentation:
-
-[React documentation on useReducer](https://reactjs.org/docs/Hooks-reference.html#usereducer)
-
----
-
-## 💡 Hints
-
-How do we make sure that the database is seeded?
-
-Which `npm` package allows us to run both the front end and the back end at the same time? How do you start it?
-
-## 🏆 Bonus
-
-If you have completed this activity, work through the following challenge with your partner to further your knowledge:
-
-* Why do we create variable names for each action type in `actions.js`?
-
-Use [Google](https://www.google.com) or another search engine to research this.
-
----
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+![example-screenshot](https://github.com/Danqest/Photo-Classifier-With-AI/blob/main/client/src/assets/MNIST.png)
