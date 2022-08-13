@@ -3,20 +3,20 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import Auth from "../../utils/auth";
 import { useQuery } from "@apollo/client";
-import { ADD_COLLECTION, ADD_USER } from "../../utils/mutations";
+import { ADD_COLLECTION} from "../../utils/mutations";
 import { QUERY_USER_COLLECTIONS } from "../../utils/queries";
 import CollectionList from '../../components/CollectionList/CollectionList'
 
 function Collections() {
   // Use `useParams()` to retrieve value of the route parameter `:profileId`
   const { loading, data } = useQuery(QUERY_USER_COLLECTIONS, {
-    variables: { collectionOwner: "testUser2" },
+    variables: { collectionOwner: Auth.getProfile().data.username },
   });
 
   let collections = data?.userCollections;
 
-  console.log(collections);
-  console.log(Auth.getProfile().data.username);
+  // console.log(collections);
+  // console.log(Auth.getProfile().data.username);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -57,11 +57,11 @@ function Collections() {
                       <span>
                         {Auth.getProfile().data.username}'s Collections:
                       </span>
+                      <p>- - - </p>
                       <CollectionList
                         collections={collections}
                         />
                         <div>
-                      <p>- - -</p>
                       <form style={{'textAlign': 'center'}} onSubmit={handleFormSubmit}>
                         <h3>Collection Creation Form</h3>
                         <div className="mb-3">

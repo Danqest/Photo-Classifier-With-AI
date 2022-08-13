@@ -36,3 +36,13 @@ export const ADD_COLLECTION = gql`
     }
   }
 `;
+
+export const DELETE_COLLECTION = gql`
+  mutation deleteCollection($collectionId: ID!) {
+    removeCollection(collectionId: $collectionId) {
+      _id
+      collectionTitle
+      collectionOwner
+    }
+  }
+`;
