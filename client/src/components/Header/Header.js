@@ -16,6 +16,7 @@ import {
   FiArrowLeftCircle,
   FiArrowRightCircle,
   FiLogIn,
+  FiAperture
 } from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
@@ -90,6 +91,11 @@ const Header = () => {
                 <Link to="/login" className="sideBtn">
                   Login
                 </Link>
+              </MenuItem>
+              <MenuItem icon={<FiAperture />}>
+              <Link to="/signup" className="sideBtn">
+                Signup    
+              </Link>
               </MenuItem>
               </Menu>
             )}
