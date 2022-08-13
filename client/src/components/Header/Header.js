@@ -54,6 +54,7 @@ const Header = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
+
               <MenuItem dataIndex="home" icon={<FiHome />}>
                 <Link to="/home" className="sideBtn">
                   Home
@@ -64,6 +65,7 @@ const Header = () => {
                   Collections
                 </Link>
               </MenuItem>
+
               <MenuItem icon={<RiPencilLine />}>
                 <Link to="/classifier" className="sideBtn">
                   Classifier
