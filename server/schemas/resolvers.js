@@ -20,6 +20,9 @@ const resolvers = {
     collections: async () => {
       return await Collection.find({}).populate("subfolders");
     },
+    collection: async (parent, { collectionId }) => {
+      return Collection.findOne({ _id: collectionId }).populate("subfolders");
+    },
     userCollections: async (parent, { collectionOwner }) => {
       return await Collection.find({ collectionOwner }).populate(
         "subfolders"
@@ -86,15 +89,27 @@ const resolvers = {
     },
 
     addSubfolder: async (parent, { subfolderName }, context) => {
-      if (context.collection) {
+      if (context.user) {
         const subfolder = await Subfolder.create({
           subfolderName,
-          parentCollection: context.collection.collectionTitle,
         });
 
         await Collection.findOneAndUpdate(
-          { _id: context.collection._id },
           { $addToSet: { subfolders: subfolder._id } }
+        );
+
+        return subfolder;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    removeSubfolder: async (parent, { subfolderId }, context) => {
+      if (context.user) {
+        const subfolder = await Subfolder.findOneAndDelete({
+          _id: subfolderId,
+        });
+
+        await Collection.findOneAndUpdate(
+          { $pull: { subfolders: subfolder._id } }
         );
 
         return subfolder;

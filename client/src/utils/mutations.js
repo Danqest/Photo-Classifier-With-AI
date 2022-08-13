@@ -46,3 +46,12 @@ export const DELETE_COLLECTION = gql`
     }
   }
 `;
+
+export const DELETE_SUBFOLDER = gql`
+  mutation deleteSubfolder($subfolderId: ID!) {
+    removeSubfolder(subfolderId: $subfolderId) {
+      _id
+      subfolderName
+    }
+  }
+`;
