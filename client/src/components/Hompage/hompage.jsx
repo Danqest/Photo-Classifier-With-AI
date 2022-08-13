@@ -1,15 +1,26 @@
-import {Link} from "react-router-dom"
-import heroimg from "../../assets/background.webp"
+import {Link} from "react-router-dom";
+import  background from "../../assets/background.webp";
+import './homepage.css';
 
 function LandingPageButton() {
 
-    return <Link to="/about" class="nav-link">
-        <button class="btn btn-primary" > 
-            <span style={{"font-size": "24px"}}>
+    return <Link to="/classifier" className="nav-link">
+        <button className="btn btn-primary" > 
+            <span style={{"fontsSize": "24px"}}>
                 Click Me!
             </span>
         </button>
     </Link>
+}
+
+const Hero = ({imgSrc})=> {
+    return ( 
+        
+        <div className="hero">
+            <img src={imgSrc} alt="Frames" className="heroimg"/>
+
+        </div>
+    )
 }
 
 function LandingFrameMessage() {
@@ -22,13 +33,12 @@ function LandingFrameMessage() {
 
     return <div style={style}>
         
-        <div style={{"font-size": "96px"}}>
-            Hello World!!
+        <div style={{"fontSize": "90px"}}>
+            Smart Photo Organizer
         </div>
         
-        <div style={{"font-size": "36px"}}>
-            This is the landing page and here's some content.
-            How much wood would a woodchuck chuck if a woodchuck would chuck wood?
+        <div style={{"fontSize": "36px"}}>
+            Digital photo clutter? Automatically organize your photos with AI.  Classify your images into pre-set categories using artificial intelligence. 
         </div>
 
         <br />
@@ -41,9 +51,9 @@ function LandingFrameMessage() {
 function LandingFrame() {
     const style = {
 
-        "background-image": `url("assets/background.webp")`,
-        "background-repeat": "no-repeat",
-        "background-size": "cover",
+        "backgroundImage": `url("images/tablet.jpg")`,
+        "backgroundRepeat": "no-repeat",
+        "backgroundSize": "cover",
         position: "absolute",
         height: "100%",
         width: "100%"

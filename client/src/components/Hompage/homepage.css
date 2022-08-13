@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-image: url(/Photo-Classifier-With-AI/client/src/assets/background.webp);
+    /* background-image: "../assets/background.webp"!important; */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
