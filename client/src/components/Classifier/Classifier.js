@@ -3,6 +3,8 @@ import './Classifier.css';
 import ml5 from 'ml5';
 import $ from 'jquery';
 
+
+
 const Classifier = () => {
   // const LOAD_BUTTON = document.getElementById('loadData');
   // LOAD_BUTTON.addEventListener('click', loadData);
@@ -118,7 +120,7 @@ const Classifier = () => {
       $(addButton).click(function() {
         if(x<maxField){
           x++; //Increment field counter
-          $(wrapper).append('<div><input type="text" class="categoryName" name="category_name[]" value="cat'+x+'"/><a href="javascript:void(0);" class="remove_button" title="Delete field"> <img src="images/delete.png" alt=""></a><label for="files"> Select sample images for this category: </label><input id="files'+x+'" class="trainData" type="file" multiple accept="image/jpeg, image/png, image/jpg"/><div class="row" id="result'+x+'"/>'); //Add field html
+          $(wrapper).append('<div><input type="text" class="categoryName" name="category_name[]" value="cat'+x+'"/><a href="javascript:void(0);" class="remove_button" title="Delete field"> <img src="delete.png" alt=""></a><label for="files"> Select sample images for this category: </label><input id="files'+x+'" class="trainData" type="file" multiple accept="image/jpeg, image/png, image/jpg"/><div class="row" id="result'+x+'"/>'); //Add field html
         }
       })
 
@@ -181,14 +183,14 @@ const Classifier = () => {
           <p>Name Up To 10 Unqiue Categories Below (At Least Two Required) - Use More Sample Images For Better Accuracy!</p>
           <div>
             <input type="text" className="categoryName" name="category_name[]" defaultValue={'cat0'}/>
-            <a className="locked_button" title="Locked field"><img src="../../assets/lock.png" alt=""></img></a>
+            <a className="locked_button" title="Locked field"><img src="lock.png" alt=""></img></a>
             <label htmlFor="files">Select sample images for this category: </label>
             <input id="files0" className="trainData" type="file" multiple accept="image/jpeg, image/png, image/jpg"/>
             <div className="row" id="result0"></div>
           </div>
           <div>
             <input type="text" className="categoryName" name="category_name[]" defaultValue={'cat1'}/>
-            <a className="add_button" id="add_button" title="Add field"><img src="../../assets/add.png" alt=""></img></a>
+            <a className="add_button" id="add_button" title="Add field"><img src="add.png" alt=""></img></a>
             <label htmlFor="files">Select sample images for this category: </label>
             <input id="files1" className="trainData" type="file" multiple accept="image/jpeg, image/png, image/jpg"/>
             <div className="row" id="result1"></div>

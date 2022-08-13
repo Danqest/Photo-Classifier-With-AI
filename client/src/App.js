@@ -18,6 +18,7 @@ import HomePage from './components/Hompage/hompage';
 
 
 
+
 import Collections from './components/Collections/Collections';
 import CollectionDetails from './components/CollectionDetail/CollectionDetail';
 
@@ -106,7 +107,7 @@ function App() {
                 element={<Signup />} 
               />
               <Route 
-                path="/home" 
+                path="/" 
                 element={<HomePage />} 
               />
               <Route 

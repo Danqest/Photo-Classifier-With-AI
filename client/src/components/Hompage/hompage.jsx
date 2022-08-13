@@ -1,73 +1,78 @@
-import {Link} from "react-router-dom";
-import  background from "../../assets/background.webp";
-import './homepage.css';
+import { Link } from "react-router-dom";
+import background from "../../assets/background.webp";
+import "./homepage.css";
 
 function LandingPageButton() {
-
-    return <Link to="/classifier" className="nav-link">
-        <button className="btn btn-primary" > 
-            <span style={{"fontsSize": "24px"}}>
-                Click Me!
-            </span>
-        </button>
+  return (
+    <Link to="/classifier" className="nav-link">
+      <button className="btn btn-primary">
+        <span style={{ fontsSize: "24px" }}>Click Me!</span>
+      </button>
     </Link>
+  );
 }
 
-const Hero = ({imgSrc})=> {
-    return ( 
-        
-        <div className="hero">
-            <img src={imgSrc} alt="Frames" className="heroimg"/>
-
-        </div>
-    )
-}
+const Hero = ({ imgSrc }) => {
+  return (
+    <div className="hero">
+      <img
+        src={imgSrc}
+        alt="Frames"
+        className="heroimg"
+      />
+    </div>
+  );
+};
 
 function LandingFrameMessage() {
+  const style = {
+    margin: "auto",
+    padding: "18% 20% 10% 30%",
+    color: "black",
+    // opacity: 0.4,
+  };
 
-    const style = {
-        margin: "auto",
-        padding: "10% 35% 10% 15%",
-        color: "white"
-    }
+  return (
+    <div style={style}>
+      <div style={{ fontSize: "90px" }}>Smart Photo Organizer</div>
 
-    return <div style={style}>
-        
-        <div style={{"fontSize": "90px"}}>
-            Smart Photo Organizer
-        </div>
-        
-        <div style={{"fontSize": "36px"}}>
-            Digital photo clutter? Automatically organize your photos with AI.  Classify your images into pre-set categories using artificial intelligence. 
-        </div>
+      <div style={{ fontSize: "36px" }}>
+        Digital photo clutter? Automatically organize your photos with AI.
+        Classify your images into pre-set categories using artificial
+        intelligence.
+      </div>
 
-        <br />
+      <br />
 
-        <LandingPageButton />
-
+      <LandingPageButton />
     </div>
+  );
 }
 
 function LandingFrame() {
-    const style = {
+  const style = {
+    backgroundImage: `url("images/tablet.jpg")`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    position: "relative",
+    height: "100%",
+    width: "100%",
+  };
 
-        "backgroundImage": `url("images/tablet.jpg")`,
-        "backgroundRepeat": "no-repeat",
-        "backgroundSize": "cover",
-        position: "absolute",
-        height: "100%",
-        width: "100%"
-    }
-
-    return <div style={style}>
-        <LandingFrameMessage />        
+  return (
+    <div style={style}>
+      <LandingFrameMessage />
     </div>
+  );
 }
 
 function HomePage() {
-    return <div>
-        <LandingFrame />
+  return (
+    <div>
+      <LandingFrame />
     </div>
+  );
 }
 
 export default HomePage;
