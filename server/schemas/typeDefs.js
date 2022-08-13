@@ -31,7 +31,7 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     collections: [Collection]
-    collection(collectionTitle: String!): Collection
+    userCollections(collectionOwner: String!): [Collection]
     subfolders: [Subfolder]
   }
 
