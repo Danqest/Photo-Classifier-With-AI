@@ -55,7 +55,7 @@ const Header = () => {
           <SidebarContent>
             <Menu iconShape="square">
               <MenuItem dataIndex="home" active={true} icon={<FiHome />}>
-                <Link to="/" className="sideBtn">
+                <Link to="/home" className="sideBtn">
                   Home
                 </Link>
               </MenuItem>
