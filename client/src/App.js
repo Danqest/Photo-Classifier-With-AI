@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import Categories from './pages/Categories';
+// import Categories from './pages/Categories';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import { StoreProvider } from './utils/GlobalState';
