@@ -1,6 +1,19 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_PRODUCTS = gql`
+export const QUERY_USER_COLLECTIONS = gql`
+  query userCollections($collectionOwner: String!) {
+    userCollections(collectionOwner: $collectionOwner) {
+      _id
+      collectionTitle
+      subfolders {
+        _id
+        subfolderName
+      }
+    }
+  }
+`;
+
+export const QUERY_SUBFOLDERS = gql`
   query getProducts($category: ID) {
     products(category: $category) {
       _id
@@ -16,7 +29,7 @@ export const QUERY_PRODUCTS = gql`
   }
 `;
 
-export const QUERY_CHECKOUT = gql`
+export const QUERY_IMAGES = gql`
   query getCheckout($products: [ID]!) {
     checkout(products: $products) {
       session

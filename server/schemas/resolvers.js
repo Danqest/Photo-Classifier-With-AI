@@ -20,8 +20,8 @@ const resolvers = {
     collections: async () => {
       return await Collection.find({}).populate("subfolders");
     },
-    collection: async (parent, { collectionTitle }) => {
-      return await Collection.findOne({ collectionTitle }).populate(
+    userCollections: async (parent, { collectionOwner }) => {
+      return await Collection.find({ collectionOwner }).populate(
         "subfolders"
       );
     },
