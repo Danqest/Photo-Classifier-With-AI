@@ -4,6 +4,7 @@ import { DELETE_COLLECTION } from "../../utils/mutations";
 import { QUERY_USER_COLLECTIONS } from "../../utils/queries";
 import Auth from "../../utils/auth";
 // import { Mutation } from "react-apollo";
+import './CollectionList.css'
 
 const CollectionList = ({ collections, collectionTitle }) => {
   const [deleteCollection, { error, data }] = useMutation(DELETE_COLLECTION, {
@@ -30,7 +31,7 @@ const CollectionList = ({ collections, collectionTitle }) => {
         collections.map((collection) => (
           <div key={collection._id}>
             <div
-              className="card-header bg-primary text-light p-2 m-0"
+              className="card-header"
               style={{ display: "flex" }}
             >
               {collection.collectionTitle}
