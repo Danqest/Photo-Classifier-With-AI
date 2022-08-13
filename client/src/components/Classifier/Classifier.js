@@ -162,7 +162,7 @@ const Classifier = () => {
   
   
   return (
-    <div className="container">
+    <div className="container-xl">
       <div>
         <h1>Customize Your Photo Classifier</h1>
       

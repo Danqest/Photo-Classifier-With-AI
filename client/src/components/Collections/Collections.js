@@ -6,7 +6,11 @@ import { useQuery } from "@apollo/client";
 import { ADD_COLLECTION} from "../../utils/mutations";
 import { QUERY_USER_COLLECTIONS, QUERY_SINGLE_COLLECTION } from "../../utils/queries";
 import CollectionList from '../../components/CollectionList/CollectionList'
+
 import { useParams } from "react-router-dom";
+
+import './collections.css'
+
 
 function Collections() {
   // Use `useParams()` to retrieve value of the route parameter `:profileId`
@@ -48,7 +52,7 @@ function Collections() {
   };
 
   return (
-    <div className="container">
+    <div className="container-xl">
       <div className="flex-row justify-center">
         <div className="col-12 col-md-8 mb-3">
           {Auth.loggedIn() ? (
@@ -67,7 +71,7 @@ function Collections() {
                         />
                         <div>
                       <form style={{'textAlign': 'center'}} onSubmit={handleFormSubmit}>
-                        <h3>Collection Creation Form</h3>
+                        <h1>Collection Creation Form</h1>
                         <div className="mb-3">
                           <label>Collection Title</label>
                           <input
@@ -79,7 +83,7 @@ function Collections() {
                           />
                         </div>
                         <div className="d-grid">
-                          <button type="submit" className="btn btn-primary">
+                          <button >
                             Create Collection
                           </button>
                         </div>

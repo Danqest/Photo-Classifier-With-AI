@@ -9,6 +9,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_COLLECTION } from "../../utils/queries";
 
 // import { Mutation } from "react-apollo";
+import './CollectionList.css'
 
 const CollectionList = ({ collections, collectionTitle }) => {
   const { collectionId } = useParams();
@@ -51,7 +52,7 @@ const CollectionList = ({ collections, collectionTitle }) => {
         collections.map((collection) => (
           <div key={collection._id}>
             <div
-              className="card-header bg-primary text-light p-2 m-0"
+              className="card-header"
               style={{ display: "flex" }}
             >
               <div className="d-grid gap-2 col-10 mx-auto">
