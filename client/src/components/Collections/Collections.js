@@ -4,8 +4,9 @@ import { useMutation } from "@apollo/client";
 import Auth from "../../utils/auth";
 import { useQuery } from "@apollo/client";
 import { ADD_COLLECTION} from "../../utils/mutations";
-import { QUERY_USER_COLLECTIONS } from "../../utils/queries";
+import { QUERY_USER_COLLECTIONS, QUERY_SINGLE_COLLECTION } from "../../utils/queries";
 import CollectionList from '../../components/CollectionList/CollectionList'
+import { useParams } from "react-router-dom";
 
 function Collections() {
   // Use `useParams()` to retrieve value of the route parameter `:profileId`
@@ -14,6 +15,9 @@ function Collections() {
   });
 
   let collections = data?.userCollections;
+
+
+
 
   // console.log(collections);
   // console.log(Auth.getProfile().data.username);

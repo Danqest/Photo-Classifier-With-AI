@@ -1,10 +1,24 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_USER_COLLECTIONS = gql`
   query userCollections($collectionOwner: String!) {
     userCollections(collectionOwner: $collectionOwner) {
       _id
       collectionTitle
+      subfolders {
+        _id
+        subfolderName
+      }
+    }
+  }
+`;
+
+export const QUERY_SINGLE_COLLECTION = gql`
+  query getSingleCollection($collectionId: ID!) {
+    collection(collectionId: $collectionId) {
+      _id
+      collectionTitle
+      collectionOwner
       subfolders {
         _id
         subfolderName
