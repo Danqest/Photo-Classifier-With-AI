@@ -1,68 +1,96 @@
 import React, { useState } from "react";
 
-import { ProSidebar, Menu, MenuItem, SidebarHeader, SidebarFooter, SidebarContent, } from "react-pro-sidebar";
+import {
+  ProSidebar,
+  Menu,
+  MenuItem,
+  SidebarHeader,
+  SidebarFooter,
+  SidebarContent,
+} from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import { FaList, FaRegHeart } from "react-icons/fa";
-import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle, FiLogIn } from "react-icons/fi";
+import {
+  FiHome,
+  FiLogOut,
+  FiArrowLeftCircle,
+  FiArrowRightCircle,
+  FiLogIn,
+  FiAperture
+} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./Header.css";
 
-import { Button, Container, InputGroup } from 'reactstrap';
-import { useTheme } from '../../utils/ThemeContext';
+import { Button, Container, InputGroup } from "reactstrap";
+import { useTheme } from "../../utils/ThemeContext";
 // import ToggleDark from './components/toggleDark';
 
+import Auth from '../../utils/auth';
 
 const Header = () => {
-  
-  const [menuCollapse, setMenuCollapse] = useState(false)
+  const [menuCollapse, setMenuCollapse] = useState(false);
   const { darkTheme, toggleTheme } = useTheme();
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  };
 
   return (
     <>
-      <div id="header" className={`d-flex ${darkTheme ? ' dark-content':''}`}>
+      <div id="header" className={`d-flex ${darkTheme ? " dark-content" : ""}`}>
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
-          <div className="logotext">
+            <div className="logotext">
               <p>{menuCollapse ? "Logo" : "Big Logo"}</p>
             </div>
             <div className="closemenu" onClick={menuIconClick}>
-              {menuCollapse ? (
-                <FiArrowRightCircle/>
-              ) : (
-                <FiArrowLeftCircle/>
-              )}
+              {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
             </div>
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem dataindex='home' active={true} icon={<FiHome />}><Link to='/' className="sideBtn">Home</Link></MenuItem>
+              <MenuItem dataindex='home' active={true} icon={<FiHome />}><Link to='/home' className="sideBtn">Home</Link></MenuItem>
               <MenuItem icon={<FaList />}><Link to='/categories' className="sideBtn">Categories</Link></MenuItem>
               <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
-              <MenuItem icon={<RiPencilLine />}><Link to='/classifier' className="sideBtn">Classifier</Link></MenuItem>
+              <MenuItem icon={<RiPencilLine />}>
+                <Link to="/classifier" className="sideBtn">
+                  Classifier
+                </Link>
+              </MenuItem>
               <MenuItem icon={<BiCog />}>Settings</MenuItem>
             </Menu>
           </SidebarContent>
           <SidebarFooter>
-          <InputGroup>
-              <Button
-                color="link"
-                onClick={toggleTheme}
-              >
-                <i className={darkTheme ? 'fas fa-sun' : 'fas fa-moon'}></i>
+            <InputGroup>
+              <Button color="link" onClick={toggleTheme}>
+                <i className={darkTheme ? "fas fa-sun" : "fas fa-moon"}></i>
                 <span className="d-md-block">Switch mode</span>
               </Button>
-        </InputGroup>
-            <Menu iconShape="square">
-              <MenuItem icon={<FiLogIn />}><Link to="/login" className="sideBtn">
-              Login
-            </Link></MenuItem>
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
-            </Menu>
+            </InputGroup>
+            {Auth.loggedIn() ? (
+              <Menu iconShape="square">
+              <MenuItem icon={<FiLogOut />} onClick={logout}>Logout</MenuItem>
+              </Menu>
+            ) : (
+              
+              <Menu iconShape="square">
+              <MenuItem icon={<FiLogIn />}>
+                <Link to="/login" className="sideBtn">
+                  Login
+                </Link>
+              </MenuItem>
+              <MenuItem icon={<FiAperture />}>
+              <Link to="/signup" className="sideBtn">
+                Signup    
+              </Link>
+              </MenuItem>
+              </Menu>
+            )}
           </SidebarFooter>
         </ProSidebar>
       </div>

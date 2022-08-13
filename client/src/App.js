@@ -14,6 +14,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Button } from 'react-bootstrap/Button';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import HomePage from './components/Hompage/hompage';
+
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -37,6 +40,7 @@ const client = new ApolloClient({
 function App() {
   
   return (
+   
       <ApolloProvider client={client}>
       <Router>
         <div className='App d-flex'>
@@ -89,10 +93,10 @@ function App() {
                 path="/signup" 
                 element={<Signup />} 
               />
-              {/* <Route 
-                path="/success" 
-                element={<Success />} 
-              /> */}
+              <Route 
+                path="/home" 
+                element={<HomePage />} 
+              />
               <Route 
                 path="/classifier" 
                 element={<Classifier />} 
