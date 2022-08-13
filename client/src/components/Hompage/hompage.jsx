@@ -5,8 +5,8 @@ import './homepage.css';
 function LandingPageButton() {
 
     return <Link to="/classifier" className="nav-link">
-        <button className="btn btn-primary" > 
-            <span style={{"fontsSize": "24px"}}>
+        <button className="btn" > 
+            <span className = "Click" style={{"fontsSize": "24px"}}>
                 Click Me!
             </span>
         </button>
@@ -33,11 +33,11 @@ function LandingFrameMessage() {
 
     return <div style={style}>
         
-        <div style={{"fontSize": "90px"}}>
+        <div className= "text" style={{"fontSize": "65px"}}>
             Smart Photo Organizer
         </div>
         
-        <div style={{"fontSize": "36px"}}>
+        <div className= "text" style={{"fontSize": "36px"}}>
             Digital photo clutter? Automatically organize your photos with AI.  Classify your images into pre-set categories using artificial intelligence. 
         </div>
 
@@ -56,7 +56,7 @@ function LandingFrame() {
         "backgroundSize": "cover",
         position: "absolute",
         height: "100%",
-        width: "100%"
+        width: "100vh"
     }
 
     return <div style={style}>
