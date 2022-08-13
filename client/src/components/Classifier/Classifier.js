@@ -1,8 +1,111 @@
-import React from "react";
+import React, { useState } from "react";
 import './Classifier.css';
-
+import ml5 from 'ml5';
 
 const Classifier = () => {
+  // const LOAD_BUTTON = document.getElementById('loadData');
+  // LOAD_BUTTON.addEventListener('click', loadData);
+  // const TRAIN_BUTTON = document.getElementById('trainModel');
+  // TRAIN_BUTTON.addEventListener('click', trainModel);
+  
+
+  let CLASS_NAMES = []
+
+  const options = {numLabels: 10}
+  const mobilenet = ml5.featureExtractor("MobileNet", options, modelLoaded)
+  const classifier = mobilenet.classification();
+
+  const [status, setStatus] = useState('STATUS: Loaded MobileNet Model! Name Categories And Upload Files Below...')
+  const [subStatus, setSubStatus] = useState('');
+
+  function modelLoaded() {
+    return status
+  }
+  console.log("Model Loaded!")  
+
+  function getCategoryNames() {
+    setSubStatus('Loading Category Names...')
+    
+    CLASS_NAMES = []
+    var catNames = document.querySelectorAll('.categoryName')
+    for (let k=0; k<catNames.length; k++) {
+        CLASS_NAMES.push(catNames[k].value)
+    }
+    console.log(CLASS_NAMES)
+    setSubStatus('Category Names Loaded...')
+  }
+
+  function loadImages() {
+      setStatus('Loading Images To Model...')
+    
+    for (let h=0; h<CLASS_NAMES.length; h++){
+        var img_array = document.getElementById('result'+h).getElementsByTagName('img')
+        console.log(img_array)
+        for (let i=0; i < img_array.length; i++) {
+            var imgObj = img_array[i]
+            // var categoryId = img_array[i].id
+            var categoryId = h
+            // categoryId = Number(categoryId.slice(-1))
+            console.log(categoryId)
+            classifier.addImage(imgObj, CLASS_NAMES[categoryId])
+            // console.log(imgObj)
+        }
+    }
+    console.log("Images loaded!")
+    setSubStatus('Images Loaded...')
+  }
+
+  function loadData() {
+    setStatus('STATUS: Loading Data...')
+    
+    getCategoryNames()
+    loadImages()
+    setStatus('STATUS: Data Loaded! Run Model...')
+    // SUBSTATUS.innerText = ''
+  }
+
+  function trainModel() {
+    console.log('Training!')  
+    setStatus('STATUS: Model Is Training, Please Wait...')
+  
+    classifier.train(whileTraining)
+  }
+
+  function whileTraining(loss) {
+    if (loss == null) {
+        console.log("Training Complete")
+        setStatus('STATUS: Training Complete! Running Predictions...')
+        
+        gotResults()
+    } else {
+        console.log(loss)
+    }
+  }
+
+  function gotResults(error, result) {
+    var toPredict = document.getElementsByClassName('unorgThumbnail')
+    for (let j=0; j<toPredict.length; j++) {
+        if (error) {
+            console.error(error)
+        } else {
+            classifier.classify(toPredict[j], CLASS_NAMES.length)
+            .then((result) => {
+                console.log(result);
+               // do whatever you want to do with result
+               var label = result[0].label
+               var accuracy = result[0].confidence
+               console.log("Predicted Classification Label: " + label)
+               console.log("Predicted Confidence: " + (accuracy*100).toFixed(2) + "%")
+              var predictElement = document.getElementById('unorgFile'+j)
+              predictElement(('Label: ' + label + ', Confidence: ' + (accuracy*100).toFixed(2) + "%"))
+               
+           }).catch(err=>console.log(err))
+        }
+    } 
+    setStatus('STATUS: Predictions Complete!')
+    
+  }
+
   return (
     <div className="container">
       <div>
@@ -12,8 +115,8 @@ const Classifier = () => {
         <p id="subStatus"></p>
       </div>
       <div className="row">
-        <button id="loadData">Load Data</button>
-        <button id="trainModel">Train & Predict</button>
+        <button id="loadData" onClick={loadData}>Load Data</button>
+        <button id="trainModel" onClick={trainModel}>Train & Predict</button>
       </div>
 
       <div className="categoryContainer">
@@ -22,23 +125,23 @@ const Classifier = () => {
           <h2>Classifier Categories</h2>
           <p>Name Up To 10 Unqiue Categories Below (At Least Two Required) - Use More Sample Images For Better Accuracy!</p>
           <div>
-            <input type="text" className="categoryName" name="category_name[]" value="cat0"/>
-            <a href="javascript:void(0);" className="locked_button" title="Locked field"><img src="images/lock.png" alt=""></img></a>
-            <label for="files">Select sample images for this category: </label>
+            <input type="text" className="categoryName" name="category_name[]" defaultValue={'cat0'}/>
+            <a className="locked_button" title="Locked field"><img src="../../assets/lock.png" alt=""></img></a>
+            <label htmlFor="files">Select sample images for this category: </label>
             <input id="files0" className="trainData" type="file" multiple accept="image/jpeg, image/png, image/jpg"/>
             <div className="row" id="result0"></div>
           </div>
           <div>
-            <input type="text" className="categoryName" name="category_name[]" value="cat1"/>
-            <a href="javascript:void(0);" className="add_button" id="add_button" title="Add field"><img src="images/add.png" alt=""></img></a>
-            <label for="files">Select sample images for this category: </label>
-            <input id="files1" class="trainData" type="file" multiple accept="image/jpeg, image/png, image/jpg"/>
+            <input type="text" className="categoryName" name="category_name[]" defaultValue={'cat1'}/>
+            <a className="add_button" id="add_button" title="Add field"><img src="../../assets/add.png" alt=""></img></a>
+            <label htmlFor="files">Select sample images for this category: </label>
+            <input id="files1" className="trainData" type="file" multiple accept="image/jpeg, image/png, image/jpg"/>
             <div className="row" id="result1"></div>
           </div>
         </div>
         <div>
           <p>- - -</p>
-          <label for="files">Select all other images you want organized: </label>
+          <label htmlFor="files">Select all other images you want organized: </label>
           <input id="files-unorganized" className="testData" type="file" multiple/>
           <output id="result-unorganized"></output>
         </div>
