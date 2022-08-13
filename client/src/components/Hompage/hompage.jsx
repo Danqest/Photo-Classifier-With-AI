@@ -56,7 +56,7 @@ function LandingFrame() {
         "backgroundSize": "cover",
         position: "absolute",
         height: "100%",
-        width: "100vh"
+        width: "100%"
     }
 
     return <div style={style}>

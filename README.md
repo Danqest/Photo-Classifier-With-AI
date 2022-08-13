@@ -1,32 +1,49 @@
-# 📐 Add Comments to Implementation of a Reducer
+# Project 3: Smart Photo Organizer with AI
 
-Work with a partner to add comments describing the functionality of the code found in [reducers.js](./Unsolved/client/src/utils/reducers.js).
 
-## 📝 Notes
+## Description
 
-What is the purpose of the action argument that gets passed to the reducer function?
+ Digital Clutter is the disorganization of your data, files in your your digital devices. Organize your photos using artificial intelligence. AI will be able to categorize, organize your stored photos. The user will be able to train the AI in the browser to learn features from the photos and categorize them
 
-How can we account for multiple types of actions inside the reducer?
+ ## User Story 
+As a User with many photos, I would like to automatically organize my photos into pre-set categories using artificial intelligence, so that I don’t have to tediously organize all similar present and future photos manually. 
 
-Refer to the documentation:
 
-[React documentation on useReducer](https://reactjs.org/docs/Hooks-reference.html#usereducer)
+ ## Table of Contents
 
----
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
 
-## 💡 Hints
+## 💡 Installation 
 
-How do we make sure that the database is seeded?
+[Heroku deployed Link](https://projectthree3.herokuapp.com/)
 
-Which `npm` package allows us to run both the front end and the back end at the same time? How do you start it?
+ `npm install`
+ 
 
-## 🏆 Bonus
+## Usage 
 
-If you have completed this activity, work through the following challenge with your partner to further your knowledge:
+`npm run develop`
 
-* Why do we create variable names for each action type in `actions.js`?
+![Homepage](./client/public/images/homepg.png)
 
-Use [Google](https://www.google.com) or another search engine to research this.
+
+![Classifier](./client/public/images/classifier.png)
+
+
+![Collection_List](./client/public/images/Collectionslist.png)
+
+
+![Signup](./client/public/images/Sign%20up.png)
+
+
+## 🏆 Credits
+
+- [Colin Brooks](https://github.com/Danqest)
+- [Alfredo Figueroa](https://github.com/supanov)
+- [Novia Phan](https://github.com/AJFigueroa83)
 
 ---
 © 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
