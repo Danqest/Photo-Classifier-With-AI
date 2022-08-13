@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Button } from 'react-bootstrap/Button';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import HomePage from './components/Hompage/hompage';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -89,10 +90,10 @@ function App() {
                 path="/signup" 
                 element={<Signup />} 
               />
-              {/* <Route 
-                path="/success" 
-                element={<Success />} 
-              /> */}
+              <Route 
+                path="/home" 
+                element={<HomePage />} 
+              />
               <Route 
                 path="/classifier" 
                 element={<Classifier />} 
