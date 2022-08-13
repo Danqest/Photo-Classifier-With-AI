@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './Classifier.css';
 import ml5 from 'ml5';
 import $ from 'jquery';
+import Button from 'react-bootstrap/Button';
 
 const Classifier = () => {
   // const LOAD_BUTTON = document.getElementById('loadData');
@@ -162,7 +163,7 @@ const Classifier = () => {
   
   
   return (
-    <div className="container">
+    <div className="container-lg">
       <div>
         <h1>Customize Your Photo Classifier</h1>
       
@@ -170,8 +171,8 @@ const Classifier = () => {
         <p id="subStatus"></p>
       </div>
       <div className="row">
-        <button id="loadData" onClick={loadData}>Load Data</button>
-        <button id="trainModel" onClick={trainModel}>Train & Predict</button>
+        <Button variant="primary" size="lg" id="loadData" onClick={loadData}>Load Data</Button>
+        <Button variant="secondary" size="lg" id="trainModel" onClick={trainModel}>Train & Predict</Button>
       </div>
 
       <div className="categoryContainer">
