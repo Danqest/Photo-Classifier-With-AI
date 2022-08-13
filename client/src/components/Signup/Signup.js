@@ -37,7 +37,7 @@ function Signup() {
 
 
   return (
-      <div>
+      <div className="container">
       {data ? (
               <p>
                 Success! You may now head{' '}
@@ -85,9 +85,6 @@ function Signup() {
                 Sign Up
               </button>
             </div>
-            <p className='no-account text-center'>
-              Already have an Account? Click <span><Link to='./login'>here</Link></span>
-            </p>
           </form>
         )
       } 

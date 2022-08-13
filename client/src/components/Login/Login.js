@@ -33,7 +33,7 @@ function Login(props) {
 
   return (
     <form className="container" onSubmit={handleFormSubmit}>
-      <h3>Sign In</h3>
+      <h3>Log In</h3>
       <div className="mb-3">
         <label>Email address</label>
         <input
@@ -77,12 +77,6 @@ function Login(props) {
       </div>
       <p className="forgot-password text-right">
         Forgot <a href="#">password?</a>
-      </p>
-      <p className="no-account text-center">
-        Don't Have an Account? Click{" "}
-        <span>
-          <Link to="/Signup">here</Link>
-        </span>
       </p>
     </form>
   );
