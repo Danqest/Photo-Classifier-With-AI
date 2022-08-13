@@ -13,9 +13,13 @@ db.once("open", async () => {
     await Subfolder.deleteMany({});
 
     // bulk create each model
-    const users = await User.insertMany(userData);
+    // const users = await User.insertMany(userData);
     // const collections = await Collection.insertMany(collectionData);
     // const subfolders = await Subfolder.insertMany(subfolderData);
+
+    for (const user of userData) {
+      await User.create(user);
+    }
 
     for (let i = 0; i < collectionData.length; i++) {
       const { _id, collectionOwner } = await Collection.create(
@@ -44,7 +48,6 @@ db.once("open", async () => {
         }
       );
     }
-    
   } catch (err) {
     console.error(err);
     process.exit(1);

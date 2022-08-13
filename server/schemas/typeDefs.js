@@ -39,6 +39,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addCollection(collectionTitle: String!): Collection
+    removeCollection(collectionId: ID!): Collection
     addSubfolder(subfolderName: String!): Subfolder
   }
 `;

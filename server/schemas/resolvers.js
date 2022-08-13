@@ -68,6 +68,23 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    removeCollection: async (parent, { collectionId }, context) => {
+      if (context.user) {
+        const collection = await Collection.findOneAndDelete({
+          _id: collectionId,
+          collectionOwner: context.user.username,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { collections: collection._id } }
+        );
+
+        return collection;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
     addSubfolder: async (parent, { subfolderName }, context) => {
       if (context.collection) {
         const subfolder = await Subfolder.create({
