@@ -31,6 +31,7 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     collections: [Collection]
+    collection(collectionId: ID!): Collection
     userCollections(collectionOwner: String!): [Collection]
     subfolders: [Subfolder]
   }
@@ -41,6 +42,7 @@ const typeDefs = gql`
     addCollection(collectionTitle: String!): Collection
     removeCollection(collectionId: ID!): Collection
     addSubfolder(subfolderName: String!): Subfolder
+    removeSubfolder(subfolderId: ID!): Subfolder
   }
 `;
 
